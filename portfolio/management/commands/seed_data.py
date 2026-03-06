@@ -8,12 +8,17 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         User = get_user_model()
 
-        # ── Profil ──────────────────────────────────────────────────────────
-        user = User.objects.filter(username='admin').first()
-        if not user:
-            self.stdout.write('Utilisateur admin introuvable.')
-            return
-
+        # ── Profil (utilisateur non-superuser pour le portfolio) ────────────
+        user, created = User.objects.get_or_create(
+            username='yann',
+            defaults={
+                'first_name': 'Yann Cédric Emmanuel',
+                'last_name': 'Ouattara',
+                'email': 'yanncedricemmanuelo@gmail.com',
+                'is_superuser': False,
+                'is_staff': False,
+            }
+        )
         user.first_name = 'Yann Cédric Emmanuel'
         user.last_name = 'Ouattara'
         user.email = 'yanncedricemmanuelo@gmail.com'
