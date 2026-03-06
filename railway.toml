@@ -1,0 +1,6 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "gunicorn portfolioAngularBackend.wsgi --log-file -"
+restartPolicyType = "on_failure"
